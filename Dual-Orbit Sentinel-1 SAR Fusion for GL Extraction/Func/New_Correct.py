@@ -333,8 +333,13 @@ def Line_Correct(cal_image, AOI, Templist, orbitProperties_pass, proj, scale: in
                     tlon_Llay = L_lon[index_Llay]
                     tlat_Llay = L_lat[index_Llay]
                     if Peak_Llay:
-                        tlon_Llay = np.append(tlon_Llay, rlon)
-                        tlat_Llay = np.append(tlat_Llay, rlat)
+                        # 使用列表收集数据，然后一次性转换为numpy数组，避免重复的np.append
+                        tlon_Llay_list = list(tlon_Llay)
+                        tlat_Llay_list = list(tlat_Llay)
+                        tlon_Llay_list.append(rlon)
+                        tlat_Llay_list.append(rlat)
+                        tlon_Llay = np.array(tlon_Llay_list)
+                        tlat_Llay = np.array(tlat_Llay_list)
 
                     LlayFeatureCollection = ee.FeatureCollection([ee.Feature(
                         ee.Geometry.Point(x, y), {'values': 1}) for x, y in zip(tlon_Llay, tlat_Llay)])
@@ -360,8 +365,13 @@ def Line_Correct(cal_image, AOI, Templist, orbitProperties_pass, proj, scale: in
                     tlon_Shadow = R_lon[index_Shadow]
                     tlat_Shadow = R_lat[index_Shadow]
                     if Peak_shdow:
-                        tlon_Shadow = np.append(tlon_Shadow, rlon)
-                        tlat_Shadow = np.append(tlat_Shadow, rlat)
+                        # 使用列表收集数据，然后一次性转换为numpy数组，避免重复的np.append
+                        tlon_Shadow_list = list(tlon_Shadow)
+                        tlat_Shadow_list = list(tlat_Shadow)
+                        tlon_Shadow_list.append(rlon)
+                        tlat_Shadow_list.append(rlat)
+                        tlon_Shadow = np.array(tlon_Shadow_list)
+                        tlat_Shadow = np.array(tlat_Shadow_list)
                     ShadowFeatureCollection = ee.FeatureCollection([ee.Feature(ee.Geometry.Point(
                         x, y), {'values': 1}) for x, y in zip(tlon_Shadow, tlat_Shadow)])
                     Passive_shadow.append(
@@ -388,8 +398,13 @@ def Line_Correct(cal_image, AOI, Templist, orbitProperties_pass, proj, scale: in
                         tlon_RLay = R_lon[index_Rlayover]
                         tlat_RLay = R_lat[index_Rlayover]
                         if Peak_Rlay:
-                            tlon_RLay = np.append(tlon_RLay, rlon)
-                            tlat_RLay = np.append(tlat_RLay, rlat)
+                            # 使用列表收集数据，然后一次性转换为numpy数组，避免重复的np.append
+                            tlon_RLay_list = list(tlon_RLay)
+                            tlat_RLay_list = list(tlat_RLay)
+                            tlon_RLay_list.append(rlon)
+                            tlat_RLay_list.append(rlat)
+                            tlon_RLay = np.array(tlon_RLay_list)
+                            tlat_RLay = np.array(tlat_RLay_list)
 
                         RLayFeatureCollection = ee.FeatureCollection([ee.Feature(
                             ee.Geometry.Point(x, y), {'values': 1}) for x, y in zip(tlon_RLay, tlat_RLay)])
